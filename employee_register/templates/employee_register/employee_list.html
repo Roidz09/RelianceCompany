@@ -1,0 +1,62 @@
+{% extends "employee_register/homebase.html" %}
+
+
+
+{% block content %}
+<html>
+    <head>
+            <style>
+                
+body
+{
+    background-color:rgb(161,153,174);
+}
+            </style>
+    </head>
+<body>
+    
+    
+<table class="table table-borderless">
+    <thead class="border-botton font-weight-bold">
+        <tr>
+            <td>Full Name</td>
+            <td>Mobile</td>
+            <td>Position</td>
+            <td>
+                <a href="{% url 'employee_insert' %}" class="btn btn outline-success">
+                    <i class="fas fa-plus"></i>Add New
+                </a>
+            </td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in employee_list %}
+            <tr>
+                <td>{{employee.fullname}} </td>
+                <td>{{employee.mobile}} </td>
+                <td>{{employee.position}} </td>
+                <td>
+                    <a href="{% url 'employee_update' employee.id%} " class="btn text-secondary px-0">
+                        <i class="far fa-edit fa-lg"></i>
+                    </a>
+                    <form action="{% url 'employee_delete' employee.id %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table><div class="col-md-4" >
+    
+    <a href="{% url 'home' %} " class="btn btn-dark btn-block btn-lg">
+        <i class="fa-regular fa-house"></i>Back to Home
+    </a>
+    
+
+</body>
+</html>
+
+{% endblock content %}
